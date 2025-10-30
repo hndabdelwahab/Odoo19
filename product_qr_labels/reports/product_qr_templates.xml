@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_product_qr_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="qr-label-box">
+                            <!-- Product Name Top -->
+                            <!-- <div class="product-name-top">
+                                <p class="product-name-text" t-esc="o.name"/>
+                            </div> -->
+
+                            <!-- QR Code - Centered -->
+                            <div class="qr-code-box">
+                                <img t-if="o.qr_image" t-att-src="'data:image/png;base64,%s' % o.qr_image.decode()" class="qr-code-img"/>
+                            </div>
+
+                            <!-- Serial Number Bottom -->
+                            <div class="serial-bottom">
+                                <p class="serial-number-bottom" t-esc="o.product_serial_number"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        .qr-label-box {
+                            width: 3.5in;
+                            height: 2.5in;
+                            border: none;
+                            padding: 0;
+                            margin: 0.2in;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            align-items: center;
+                            font-family: Arial, sans-serif;
+                            page-break-inside: avoid;
+                        }
+
+                        <!-- .product-name-top {
+                            width: 100%;
+                            text-align: center;
+                            padding: 0.1in 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex-shrink: 0;
+                        } -->
+
+                        .product-name-text {
+                            margin: 0;
+                            padding: 0;
+                            font-size: 10pt;
+                            font-weight: bold;
+                            max-width: 3.3in;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .qr-code-box {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-grow: 1;
+                        width: 100%;
+                        }
+
+                        .qr-code-img {
+                        width: 1.6in;
+                        height: 1.6in;
+                        max-width: 100%;
+                        display: block;
+                        }
+
+                        /* serial line */
+                        .serial-bottom {
+                        width: 100%;
+                        padding: 0.1in 0;       
+                        display: flex;
+                        justify-content: center; 
+                        align-items: center;
+                        flex-shrink: 0;
+                        }
+
+                        .serial-number-bottom {
+                        width: 1.6in;            
+                        margin: 0;
+                        font-size: 12pt;
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                        text-align: left;        
+                        }
+
+
+                        .page {
+                            display: flex;
+                            justify-content: center;
+                            align-items: flex-start;
+                        }
+                    </style>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,155 @@
+<odoo>
+
+    <template id="portal_time_off_template" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[@class='o_portal_category row g-2 mt-3' and @id='portal_common_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">My Time Offs</t>
+                <t t-set="text">View and manage your time offs</t>
+                <t t-set="url" t-value="'/my/time_off'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_inherit" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[@id='portal_common_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Apply Time Off</t>
+                <t t-set="text">Submit your leave application</t>
+                <t t-set="url" t-value="'/my/apply_time_off'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='portal_common_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">My Leave Allocations</t>
+                <t t-set="text">My Leave Allocations</t>
+                <t t-set="url" t-value="'/my/allocations'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_time_off_page" name="Portal Time Offs">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-3">
+                <h1>My Time Offs</h1>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h3>Your Leave Records</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Leave Type</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="time_offs" t-as="time_off">
+                                    <td>
+                                        <t t-esc="time_off.holiday_status_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="time_off.date_from.strftime('%Y-%m-%d')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="time_off.date_to.strftime('%Y-%m-%d')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="dict(time_off._fields['state'].selection).get(time_off.state, 'Unknown')"/>
+                                    </td>
+                                </tr>
+                                <tr t-if="not time_offs">
+                                    <td colspan="4" class="text-center">No time offs found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_apply_time_off_form" name="Apply Time Off">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-3">
+                <h1>Apply Time Off</h1>
+                <form action="/my/apply_time_off/submit" method="post" class="mt-4">
+                    <!-- Include CSRF token -->
+                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label for="time_off_type">Time Off Type</label>-->
+                    <!--                        <select id="time_off_type" name="time_off_type" class="form-control">-->
+                    <!--                            <option t-foreach="time_off_types" t-as="type" t-att-value="type.id">-->
+                    <!--                                <t t-esc="type.name"/>-->
+                    <!--                                <t t-esc="type['label']"/>-->
+
+                    <!--                            </option>-->
+                    <!--                        </select>-->
+                    <!--                    </div>-->
+                    <div class="form-group">
+                        <label for="time_off_type">Time Off Type</label>
+                        <select id="time_off_type" name="time_off_type" class="form-control">
+                            <option t-foreach="time_off_types" t-as="type" t-att-value="type['id']">
+                                <t t-esc="type['label']"/>
+                                <!--                                <t t-esc="'Mohammad Husen: ' + type['label']"/>-->
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="date_from">From</label>
+                        <input type="date" id="date_from" name="date_from" class="form-control"/>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="date_to">To</label>
+                        <input type="date" id="date_to" name="date_to" class="form-control"/>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <a href="/my/home" class="btn btn-secondary">Cancel</a>
+                    </div>
+                    <div class="form-group mt-3">
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_allocations" name="Portal My Allocations">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h2 class="mb-4">My Leave Allocations</h2>
+                <div class="row">
+                    <t t-foreach="allocations" t-as="allocation">
+                        <div class="col-md-4 mb-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-esc="allocation['leave_name']"/>
+                                    </h5>
+                                    <p class="card-text">
+                                        <strong>Allocated Days:</strong>
+                                        <t t-esc="allocation['total_leave']"/>
+                                        <br/>
+                                        <strong>Remaining Balance:</strong>
+                                        <t t-esc="allocation['remain_leave']"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

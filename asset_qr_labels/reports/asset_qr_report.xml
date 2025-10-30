@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_qr_code_label" model="ir.actions.report">
+            <field name="name">Asset QR Label</field>
+            <field name="model">account.asset</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">asset_qr_labels.report_asset_qr_document</field>
+            <field name="report_file">asset_qr_labels.report_asset_qr_document</field>
+            <field name="binding_model_id" ref="account_asset.model_account_asset"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

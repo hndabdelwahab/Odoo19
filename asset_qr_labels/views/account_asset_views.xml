@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_account_asset_form_qr" model="ir.ui.view">
+        <field name="name">account.asset.form.qr</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="QR Code &amp; Asset Serial" name="qr_code_group">
+                    <field name="asset_serial_number" readonly="1" class="fw-bold"/>
+                    <field name="qr_payload" readonly="1"/>
+                    <field name="qr_image" widget="image" readonly="1" options="{'size': [150, 150]}"/>
+                    <div class="oe_button_box" name="qr_buttons">
+                        <button name="action_generate_qr_code" string="Generate QR Code" type="object" class="btn-primary" icon="fa-qrcode"/>
+                        <button name="action_print_qr_label" string="Print QR Label" type="object" class="btn-secondary" icon="fa-print" invisible="not qr_image"/>
+                        <button name="action_download_qr_code" string="Download QR Code" type="object" class="btn-secondary" icon="fa-download" invisible="not qr_image"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

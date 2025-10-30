@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_asset_qr_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        
+                        <!-- Header -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="text-center">Asset QR Label</h2>
+                                <hr/>
+                            </div>
+                        </div>
+                        
+                        <!-- Asset Information -->
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Asset Name:</strong></td>
+                                        <td><span t-field="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Asset ID:</strong></td>
+                                        <td><span t-esc="o.id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>QR Data:</strong></td>
+                                        <td><span t-field="o.qr_payload"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <!-- QR Code -->
+                            <div class="col-6 text-center">
+                                <div style="border: 1px solid #ddd; padding: 20px; display: inline-block;">
+                                    <img t-att-src="'/report/barcode?type=QR&amp;value=' + (o.qr_payload_esc or '') + '&amp;width=200&amp;height=200&amp;humanreadable=0'" 
+                                         style="width: 200px; height: 200px;"/>
+                                    <br/>
+                                    <small class="text-muted">Scan for asset info</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Footer with additional info -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <hr/>
+                                <p class="text-center text-muted">
+                                    Generated on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

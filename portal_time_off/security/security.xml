@@ -1,0 +1,43 @@
+<odoo>
+    <record id="access_mail_activity_type_portal" model="ir.model.access">
+        <field name="name">Mail Activity Type Portal</field>
+        <field name="model_id" ref="mail.model_mail_activity_type"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+   <record id="access_mail_activity1_type_portal" model="ir.model.access">
+        <field name="name">Mail Activity Portal</field>
+        <field name="model_id" ref="mail.model_mail_activity"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_calendar_attendee_type_portal" model="ir.model.access">
+        <field name="name">Calendar Event Attendee Portal</field>
+        <field name="model_id" ref="calendar.model_calendar_attendee"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_calendar_event_type_portal" model="ir.model.access">
+        <field name="name">Calendar Event Type Portal</field>
+        <field name="model_id" ref="calendar.model_calendar_event"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!--    calendar.event-->
+    <!--    calendar.attendee-->
+    <!--    calendar.event-->
+    <!--    mail.activity-->
+</odoo>
